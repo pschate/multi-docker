@@ -14,4 +14,12 @@ after_success:
   - docker build -t multi-nginx ./nginx
   - docker build -t multi-server ./server
   - docker build -t multi-worker ./worker
-    
+
+  # Log in to Docker CLI, add variable in travis ie. DOCKER_ID and DOCKER_PASSWORD
+  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin  
+
+  # Take those images and push to DockerHub  
+  - docker push multi-client
+  - docker push multi-nginx
+  - docker push multi-server
+  - docker push multi-worker
